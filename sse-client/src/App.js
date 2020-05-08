@@ -1,4 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Upload from "./uploads"
 import "./App.css";
 import * as Ramda from "ramda";
 
@@ -22,7 +29,16 @@ const useSSE = eventsource => {
   return nests;
 }
 
-function App() {
+const PropTest = (props) => {
+  console.log(props)
+  const { it } = props
+  console.log(it)
+  const { tiz } = props
+  console.log(tiz)
+  return (<div> hello </div>)
+}
+
+const Home = () => {
   // const [nests, setNests] = useState([]);
   // const [listening, setListening] = useState(false);
 
@@ -73,10 +89,31 @@ function App() {
       </table>
     );
   } else {
-    return <h1>Loading</h1>;
+
+    const spreadOps = {
+      me: "hi",
+      you: "hello"
+    }
+    const spreadOps2 = ["hi", "you"]
+    return (
+      <>
+        <PropTest tiz={spreadOps2} it={spreadOps} />
+      </>
+    );
   }
-
-
 }
+const App = () => (
+  <Router>
+    <Switch>
+      <Route exact path="/">
+        <Home />
+      </Route>
+      <Route path="/upload">
+        <Upload />
+      </Route>
+    </Switch>
+  </Router>
+
+)
 
 export default App;
